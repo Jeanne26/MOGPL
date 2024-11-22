@@ -11,10 +11,12 @@ def solve_MaxMin():
     #nombre de variable
     p = len(C1)
     n = 2
-    #Coefficient fonction objectif critère maxmin
+    #Coefficient fonctions objectifs de l'exemple 1, utiliser en tant que matrice 
+    #des contraintes avec le critere maxmin
     C= np.stack((C1,C2),axis= 1 )
 
     m= Model("MaxMin")
+    m.setParam('OutputFlag', 0)
 
     #Declaration des variables de decision
     x=[]

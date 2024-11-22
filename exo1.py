@@ -55,7 +55,6 @@ def modelExemple1():
     m1.addConstr(quicksum(A[i]*x1[i] for i in range(p)) <= B)
     m2.addConstr(quicksum(A[i]*x2[i] for i in range(p)) <= B)
 
-    print(m1.NumVars)
     return m1, m2, x1 , x2
 
 
@@ -65,6 +64,10 @@ def solveExemple1():
     et du scénario deux et renvoie les valeurs à l'objectif ainsi que le vecteur de 
     conséquence"""
     m1,m2,x1,x2= modelExemple1()
+
+    #evite l'affichage des logs
+    m1.setParam('OutputFlag', 0)
+    m2.setParam('OutputFlag', 0)
     #Resolution
     m1.optimize()
     m2.optimize()
