@@ -4,9 +4,13 @@ from pylab import plot, show
 from exo1 import solveExemple1, variableExemple1
 
 def solve_MinMaxRegret():
-    """Application du critère MinMax regret pour la résolution de l'exemple 1, retourne
-    la solution x,t et z à l'optimum, """
-    #Recuperation des valeurs à l'optimum dans le scénario 1 et 2
+    """Application du critère MinMax regret pour la resolution de l'exemple 1
+    Returns:
+    - x : solution optimal de l'exemple 1 au sens du minmax regret
+    - t : solution dont l'evaluation dans le pire cas est la meilleure possible
+    - z : vecteur image de x
+    """
+    #Recuperation des valeurs à l'optimum dans le scenario 1 et 2
     _,_,z1_opt, z2_opt = solveExemple1()
 
     #Definition du problème de l'exemple 1
@@ -51,13 +55,16 @@ def solve_MinMaxRegret():
     return x_opt,z_opt,t_opt
 
 def affichageMaxMin():
+    """
+    Affiche le resultat de la resolution du programme lineaire pour le critere maxmin regret
+    """
     x_opt,z_opt,t_opt = solve_MinMaxRegret()
 
     print("-----------------------------------------")
     print("-----------------------------------------")
-    print(f"Solution optimale x* : {x_opt}")
-    print(f"Vecteur de conséquence z(x*) : {z_opt}")
-    print(f"Valeur de la fonction objectif g(x*) : {t_opt}")
+    print(f"Solution optimale x'* : {x_opt}")
+    print(f"Vecteur image z(x'*) : {z_opt}")
+    print(f"Valeur de la fonction objectif g(x'*) : {t_opt}")
     print("-----------------------------------------")
     print("-----------------------------------------")
     

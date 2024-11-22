@@ -1,10 +1,14 @@
 from gurobipy import *
-from utils import variableExemple1
 
 def variableExemple1():
-    """ Retourne la matrice de contraintes de contrainte, de second membre et les 
-    matrice des fonctions objectifs du scénario 1 et 2 de l'exemple 1, ainsi que le
-    nombre de scénarios, variables et contraintes du problème"""
+    """Definie les variables de l'exemple 1
+
+    Returns:
+       - A : matrice des contraintes
+       - B : second membre
+       - C1 : coefficient fonction objectif dans le scenario 1
+       - C2 : coefficient fonction objectif dans le scenario 2
+    """
     #Matrice des contraintes
     A=[60,10,15,20,25,20,5,15,20,60]
 
@@ -20,8 +24,14 @@ def variableExemple1():
 
 
 def modelExemple1():
-    """Créer et retourne les deux modèles qui correspondent au scénario 1 et 2 
-    de l'exemple 1"""
+    """ Creer et retourne les deux modèles qui correspondent au scenario 1 et 2 
+    de l'exemple 1
+    Returns:
+     - m1 : modèle du scenario 1 de l'exemple 1
+     - m2 : modèle du scenario 1 de l'exemple 2
+     - x1 : variable du modèles m1
+     - x2 : variable du modèles m2 
+    """
     A,B,C1,C2 = variableExemple1()
 
     m1 = Model("scenario 1")
@@ -60,9 +70,15 @@ def modelExemple1():
 
 
 def solveExemple1():
-    """Résout les deux programmes linéaires de l'Exemple 1 celui du scénario 1
-    et du scénario deux et renvoie les valeurs à l'objectif ainsi que le vecteur de 
-    conséquence"""
+    """Resout les deux programmes lineaires de l'Exemple 1 celui du scenario 1
+    et du scenario deux et renvoie les valeurs à l'objectif ainsi que le vecteur de 
+    consequence
+    Returns:
+    - x1_opt : solution optimale dans le scenario 1 de l'exemple 1
+    - x2_opt : solution optimale dans le scenario 2 de l'exemple 1
+    - obj1 : valeur de l'objectif à l'optimum dans le scenario 1
+    - obj2 : valeur de l'objectif à l'optimum dans le scenario 2
+    """
     m1,m2,x1,x2= modelExemple1()
 
     #evite l'affichage des logs
@@ -85,21 +101,26 @@ def solveExemple1():
 
 
 def affichageExempl1():
+    """
+    Affiche les resultats de la resolution des programmes lineaires de l'exercice 1
+    respectivement associe au scenario 1 et 2.
+    """
     x1_opt, x2_opt, obj1, obj2 = solveExemple1()
     
     print("-----------------------------------------")
     print("-----------------------------------------")
     print("")
-    print("Solution optimale dans le scenario 1:")
-    print(x1_opt)
+    print("Solution optimale dans le scénario 1:")
+    print("x1* :",x1_opt)
     print("")
     print('Valeur de la fonction objectif dans le scenario 1:', obj1 )
 
     
     print("")
-    print("Solution optimale dans le scenario 2:")
-    print(x2_opt)
+    print("Solution optimale dans le scénario 2:")
+    print("x2* :", x2_opt)
     print("")
     print('Valeur de la fonction objectif :', obj2)
     print("-----------------------------------------")
     print("-----------------------------------------")
+
