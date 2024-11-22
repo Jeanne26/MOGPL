@@ -103,4 +103,3 @@ def affichageExempl1():
     print('Valeur de la fonction objectif :', obj2)
     print("-----------------------------------------")
     print("-----------------------------------------")
-
