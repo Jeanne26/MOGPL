@@ -29,7 +29,7 @@ plt.plot([z1[0], z1[1]], [z2[0], z2[1]], alpha = 0.3, color='purple', linestyle=
 
 plt.xlabel(r'$z_1(x)$')
 plt.ylabel(r'$z_2(x)$')
-plt.title('Représentation des solutions dans le plan $(z_1, z_2)$')
+# plt.title('Représentation des solutions dans le plan $(z_1, z_2)$')
 plt.legend()
 
 plt.grid(True)
