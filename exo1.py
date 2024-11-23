@@ -1,5 +1,5 @@
 from gurobipy import *
-
+import numpy as np
 def variableExemple1():
     """Definie les variables de l'exemple 1
 
@@ -124,3 +124,25 @@ def affichageExempl1():
     print("-----------------------------------------")
     print("-----------------------------------------")
 
+
+def variableGen(n,p):
+    """Renvoie  les variables d'un problème de sac à dos robuste en présence
+    de n scénarios et p variables
+
+    Args:
+        n (int): nombre de scénarios du problème
+        p (int): nombre de variable du problème
+    Returns:
+        A (Array): matrice des contraintes
+        B (int): second membre
+        C (Array): matrice des fonctions objectifs
+    """
+    #matrice des contraintes du problème
+    A = np.random.randint(1,101, p)
+    B = np.sum(A)//2
+    C= np.array([np.random.randint(1,101, p) for i in range(n)])
+    
+    return A, B, C
+        
+A,B,C = variableGen(5,5)
+print(A,B,C)
