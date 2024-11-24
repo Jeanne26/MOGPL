@@ -1,6 +1,6 @@
 from gurobipy import *
 import numpy as np
-from pb_sac_a_dos import variableExemple1, extractABC,modelGen
+from pb_sac_a_dos import variableExemple1, extractABC
 
 def solve_MaxMin():
     """Application du critère MaxMin pour la résolution de l'exemple 1

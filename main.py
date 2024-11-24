@@ -1,6 +1,6 @@
 from pb_sac_a_dos import affichageExempl1, variableGen, modelGen, solveGen, afficheGen
 from maxmin import affichageMaxMin, solve_MaxMin, solve_MaxMinG
-from minmaxregret import affichageMinMaxRegret, solve_MinMaxRegret
+from minmaxregret import affichageMinMaxRegret, solve_MinMaxRegret, solve_MinMaxRegretG
 from visualisation import visualisation_Ex1
 
 
@@ -50,7 +50,7 @@ def pb_generalise():
         print("\n########################################")
         print(f"1. Résolution des {n} problèmes")
         print("2. Résolution avec le critère MaxMin")
-        # print("3. Résolution avec le critère MinMax Regret ")
+        print("3. Résolution avec le critère MinMax Regret ")
         print("0. Quitter")
         print("\n########################################")
 
@@ -68,12 +68,15 @@ def pb_generalise():
             x,z,t = solve_MaxMinG(models, variables)
             affichageMaxMin(x,z,t)
 
+        elif choix=="3":
+            print("\nRésolution avec le critère MaxMin :")
+            x,z,t = solve_MinMaxRegretG(models, variables)
+            affichageMinMaxRegret(x,z,t)
+
         elif choix =="0":
             break
 
     
-    # affichage
-    afficheGen(var_opt, objs)
 
 
 if __name__ == "__main__":
