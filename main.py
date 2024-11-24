@@ -1,6 +1,6 @@
 from pb_sac_a_dos import affichageExempl1, variableGen, modelGen, solveGen, afficheGen
 from maxmin import affichageMaxMin, solve_MaxMin, solve_MaxMinG
-from minmaxregret import affichageMaxMin as affichageMinMaxRegret
+from minmaxregret import affichageMinMaxRegret, solve_MinMaxRegret
 from visualisation import visualisation_Ex1
 
 
@@ -24,7 +24,8 @@ def main():
         affichageMaxMin(x,z,t)
     elif choix == "3":
         print("\nRésolution avec le critère MinMax Regret :")
-        affichageMinMaxRegret()
+        x,z,t = solve_MinMaxRegret()
+        affichageMinMaxRegret(x,z,t)
     elif choix == "4":
         print("\nVisualisation des solutions de l'exemple 1")
         visualisation_Ex1()

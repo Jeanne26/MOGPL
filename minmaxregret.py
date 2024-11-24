@@ -54,11 +54,10 @@ def solve_MinMaxRegret():
     
     return x_opt,z_opt,t_opt
 
-def affichageMaxMin():
+def affichageMinMaxRegret(x_opt,z_opt,t_opt):
     """
     Affiche le resultat de la resolution du programme lineaire pour le critere maxmin regret
     """
-    x_opt,z_opt,t_opt = solve_MinMaxRegret()
 
     print("-----------------------------------------")
     print("-----------------------------------------")
