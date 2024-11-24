@@ -145,16 +145,16 @@ def variableGen(n,p):
 
 
 
-def modelGen(A,B,C):
+def modelGen(n,p):
     """ Creer et retourne n modeles correspondant au n scenarios du probleme
     Args:
-        A (Array): matrice des contraintes des problèmes
-        B (int): second membre des problemes
-        C (Array): matrice des coefficients des n focntions objectfs du probleme
+        n (int) : nombre de scenarios
+        p (int) : nombre de variables/projets
     Returns:
      - models (list) : liste des modeles
      - variables (list): list des variables
     """
+    A,B,C = variableGen(n,p)
     #nombre de scenarios
     n= C.shape[0]
     #nombre de variables
@@ -178,10 +178,46 @@ def modelGen(A,B,C):
 
         #ajout de la contrainte
         model.addConstr(quicksum(A[j]*var[j] for j in range(p)) <= B)
+        model.update()
         models.append(model)
         variables.append(var)
 
     return models, variables
+
+def extractABC(models,variables):
+    """Extrait la matrice des contraintes et le second membre des problemes ainsi que la matrice
+    des listes des coefficient de la fonction objectif des problemes
+
+    Args:
+        models (list): liste de modele partageant la meme matrice de contraintes
+        variables (list): liste des variables associées au probleme
+    Returns:
+        A (list) : matrice des contraintes
+        B (int) : liste qui contient l'unique variable du second membre des modeles
+        C (list) : liste des listes des coefficient de la fonction objectif des problemes
+    """
+    #nombre de scenarios
+    n = len(models)
+    #nombre de variables
+    p = len(variables[0])
+    A = None
+    B = None
+    C = []
+
+    for i, model in enumerate(models):
+        # recuperation des coefficients des fonctions objectif pour le scénario i
+        C.append(model.getAttr("Obj", variables[i]))
+
+        # Si premier modele on recupere A et B, uniquement dans ce cas car A et B sont communes
+        #a tous les scenarios
+        if i == 0:
+            #on une contrainte donc on recupere la premiere contrainte de la liste des contraintes
+            constr = model.getConstrs()[0]  
+            A = [model.getCoeff(constr, var) for var in variables[i]]
+            #recupere le Right Hand Side de la contrainte
+            B = model.RHS
+
+    return A, B, C
 
 def solveGen(models, variables):
     """Resout les programmes lineaires contenu dans models

@@ -1,6 +1,6 @@
 from gurobipy import *
 import numpy as np
-from pb_sac_a_dos import variableExemple1
+from pb_sac_a_dos import variableExemple1, extractABC,modelGen
 
 def solve_MaxMin():
     """Application du critère MaxMin pour la résolution de l'exemple 1
@@ -50,11 +50,11 @@ def solve_MaxMin():
 
 
 
-def affichageMaxMin():
+def affichageMaxMin(x_opt,z_opt,t_opt):
     """
     Affiche le resultat de la resolution du programme lineaire pour le critere minmax
     """
-    x_opt,z_opt,t_opt = solve_MaxMin()
+    
 
     print("-----------------------------------------")
     print("-----------------------------------------")
@@ -63,4 +63,50 @@ def affichageMaxMin():
     print(f"Valeur de la fonction objectif g(x*) : {t_opt}")
     print("-----------------------------------------")
     print("-----------------------------------------")
+
+
+def solve_MaxMinG(models, vars):
+    """Application du critère MaxMin pour la résolution d'un probleme generalise
+    Args:
+        models (list) : liste de modeles
+        vars (list) : liste de variables associees au modeles
+    Returns:
+    - x : solution optimal du probleme generalise au sens du maxmin
+    - t : solution dont l'evaluation dans le pire cas est la meilleure possible
+    - z : vecteur image de x
+    """
+    #nombre de variable
+    p = len(vars[0])
+    n = len(models)
+    #Recuperation des variables
+    A,B,C= extractABC(models,vars)
+    m= Model("MaxMin")
+    m.setParam('OutputFlag', 0)
+
+    #Declaration des variables de decision
+    x=[]
+    for i in range(p):
+        x.append(m.addVar(vtype=GRB.BINARY, lb=0,name="x%d" % (i+1)))
+    t= m.addVar(vtype=GRB.CONTINUOUS, name="t")
+
+    #Integration des nouvelles variables
+    m.update()
+
+    #Definition de l'objectif
+    m.setObjective(t, GRB.MAXIMIZE)
+    m.update()
+    #Definition de contraintes
+    for i in range(n):
+        m.addConstr(t<= quicksum(C[i][j]*x[j] for j in range(p)))
+
+    m.addConstr(quicksum(A[i]*x[i] for i in range(p))<= B[0])
+
+    #Resolution
+    m.optimize()
+
+    x_opt = [round(var.x) for var in x]
+    z_opt = [int(sum(C[i][j] * x_opt[j] for j in range(p))) for i in range(n)]
+    t_opt = t.x
     
+    return x_opt,z_opt,t_opt
+   
