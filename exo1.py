@@ -61,7 +61,7 @@ def modelExemple1():
     m1.setObjective(obj1, GRB.MAXIMIZE)
     m2.setObjective(obj2, GRB.MAXIMIZE)
 
-    #definition des contrainte
+    #definition des contraintes
     m1.addConstr(quicksum(A[i]*x1[i] for i in range(p)) <= B)
     m2.addConstr(quicksum(A[i]*x2[i] for i in range(p)) <= B)
 
@@ -133,7 +133,7 @@ def variableGen(n,p):
         n (int): nombre de scénarios du problème
         p (int): nombre de variable du problème
     Returns:
-        A (Array): matrice des contraintes
+        A (Array): vecteur des contraintes
         B (int): second membre
         C (Array): matrice des fonctions objectifs
     """
@@ -141,8 +141,90 @@ def variableGen(n,p):
     A = np.random.randint(1,101, p)
     B = np.sum(A)//2
     C= np.array([np.random.randint(1,101, p) for i in range(n)])
-    
     return A, B, C
-        
-A,B,C = variableGen(5,5)
-print(A,B,C)
+
+
+
+def modelGen(A,B,C):
+    """ Creer et retourne n modeles correspondant au n scenarios du probleme
+    Args:
+        A (Array): matrice des contraintes des problèmes
+        B (int): second membre des problemes
+        C (Array): matrice des coefficients des n focntions objectfs du probleme
+    Returns:
+     - models (list) : liste des modeles
+     - variables (list): list des variables
+    """
+    #nombre de scenarios
+    n= C.shape[0]
+    #nombre de variables
+    p = len(A)
+
+    models= []
+    variables = []
+    for i in range(n):
+        model = Model()
+        #ajout des variables au modele
+        var = [model.addVar(vtype=GRB.BINARY, name=f"x{j+1}_s{i+1}") for j in range(p)]
+        model.update()
+        #definition de l'objectif
+        obj = LinExpr();
+        obj = 0
+
+        for j in range(p):
+            obj += C[i,j]*var[j]
+        model.setObjective(obj, GRB.MAXIMIZE)
+        model.update()
+
+        #ajout de la contrainte
+        model.addConstr(quicksum(A[j]*var[j] for j in range(p)) <= B)
+        models.append(model)
+        variables.append(var)
+
+    return models, variables
+
+def solveGen(models, variables):
+    """Resout les programmes lineaires contenu dans models
+
+    Args:
+        models (list): liste de modele
+        variables (list): liste des variables associees au models contenu dans models
+
+    Returns:
+        var_opt (list) : liste contenant les variables optimales des modeles
+        objs (list) : liste contenant les valeurs à l'optimum de chaque modele
+    """
+    var_opt = []
+    objs = []
+    for i in range(len(models)):
+        m= models[i]
+        x= variables[i]
+
+        m.setParam('OutputFlag', 0)
+
+        m.optimize()
+
+        x_opt =[round(var.x) for var in x]
+
+        obj = m.ObjVal
+
+        var_opt.append(x_opt)
+        objs.append(obj)
+    
+    return var_opt, objs
+
+def afficheGen(var_opt, objs):
+    """_summary_
+
+    Args:
+        var_opt (list) : liste contenant les variables optimales des modeles
+        objs (list) : liste contenant les valeurs à l'optimum de chaque modele
+    """
+    for i in range(len(var_opt)):
+        print("")
+        print(f"Solution optimale dans le scénario {i+1}:")
+        print(f"x{i+1}* :", var_opt[i])
+        print("")
+        print(f'Valeur de la fonction objectif dans le scénario {i+1}:', objs[i])
+        print("-----------------------------------------")
+        print("-----------------------------------------")
