@@ -1,5 +1,5 @@
 import matplotlib.pyplot as plt
-from exo1 import solveExemple1, variableExemple1
+from pb_sac_a_dos import solveExemple1, variableExemple1
 from maxmin import solve_MaxMin
 from minmaxregret import solve_MinMaxRegret
 

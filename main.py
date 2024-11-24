@@ -1,4 +1,4 @@
-from exo1 import affichageExempl1, variableGen, modelGen, solveGen, afficheGen
+from pb_sac_a_dos import affichageExempl1, variableGen, modelGen, solveGen, afficheGen
 from maxmin import affichageMaxMin as affichageMaxMinMax
 from minmaxregret import affichageMaxMin as affichageMinMaxRegret
 from visualisation import visualisation_Ex1

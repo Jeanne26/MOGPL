@@ -1,7 +1,7 @@
 from gurobipy import *
 import numpy as np
 from pylab import plot, show
-from exo1 import solveExemple1, variableExemple1
+from pb_sac_a_dos import solveExemple1, variableExemple1
 
 def solve_MinMaxRegret():
     """Application du critère MinMax regret pour la resolution de l'exemple 1
