@@ -16,7 +16,7 @@ def solve_MaxMin():
     n = 2
     #Coefficient fonctions objectifs de l'exemple 1, utiliser en tant que matrice 
     #des contraintes avec le critere maxmin
-    C= np.stack((C1,C2),axis= 1 )
+    C= np.stack((C1,C2),axis= 1 ).reshape((2,10))
 
     m= Model("MaxMin")
     m.setParam('OutputFlag', 0)
@@ -35,7 +35,7 @@ def solve_MaxMin():
 
     #Definition de contraintes
     for i in range(n):
-        m.addConstr(t<= quicksum(C[j][i]*x[j] for j in range(p)))
+        m.addConstr(t<= quicksum(C[i][j]*x[j] for j in range(p)))
 
     m.addConstr(quicksum(A[i]*x[i] for i in range(p))<= B)
 
@@ -43,7 +43,7 @@ def solve_MaxMin():
     m.optimize()
 
     x_opt = [round(var.x) for var in x]
-    z_opt = [int(sum(C[j][i] * x_opt[j] for j in range(10))) for i in range(2)]
+    z_opt = [int(sum(C[i][j] * x_opt[j] for j in range(10))) for i in range(2)]
     t_opt = t.x
     
     return x_opt,z_opt,t_opt
@@ -75,11 +75,14 @@ def solve_MaxMinG(models, vars):
     - t : solution dont l'evaluation dans le pire cas est la meilleure possible
     - z : vecteur image de x
     """
+    #Definition du problème de l'exemple 1
+    A,B,C1,C2= variableExemple1()
     #nombre de variable
-    p = len(vars[0])
-    n = len(models)
-    #Recuperation des variables
-    A,B,C= extractABC(models,vars)
+    p = 10
+    n = 2
+    #Coefficient fonctions objectifs de l'exemple 1, utiliser en tant que matrice 
+    #des contraintes avec le critere maxmin
+    C= np.stack((C1,C2),axis= 1 ).reshape((2,10))
     m= Model("MaxMin")
     m.setParam('OutputFlag', 0)
 
@@ -99,7 +102,7 @@ def solve_MaxMinG(models, vars):
     for i in range(n):
         m.addConstr(t<= quicksum(C[i][j]*x[j] for j in range(p)))
 
-    m.addConstr(quicksum(A[i]*x[i] for i in range(p))<= B[0])
+    m.addConstr(quicksum(A[i]*x[i] for i in range(p))<= B)
 
     #Resolution
     m.optimize()

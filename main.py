@@ -69,7 +69,7 @@ def pb_generalise():
             affichageMaxMin(x,z,t)
 
         elif choix=="3":
-            print("\nRésolution avec le critère MaxMin :")
+            print("\nRésolution avec le critère MinMaxRegret :")
             x,z,t = solve_MinMaxRegretG(models, variables)
             affichageMinMaxRegret(x,z,t)
 

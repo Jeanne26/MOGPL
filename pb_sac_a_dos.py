@@ -193,7 +193,7 @@ def extractABC(models,variables):
         variables (list): liste des variables associées au probleme
     Returns:
         A (list) : matrice des contraintes
-        B (int) : liste qui contient l'unique variable du second membre des modeles
+        B (int) : liste qui contient le second membre des modeles
         C (list) : liste des listes des coefficient de la fonction objectif des problemes
     """
     #nombre de scenarios

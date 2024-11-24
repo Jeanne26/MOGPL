@@ -78,15 +78,22 @@ def solve_MinMaxRegretG(models, vars):
     - t : solution dont l'evaluation dans le pire cas est la meilleure possible
     - z : vecteur image de x
     """
-    #Recuperation des valeurs des variables a l'optimum
-    var_opt,objs = solveGen(models,vars)
+    #Recuperation des valeurs à l'optimum dans le scenario 1 et 2
+    _,_,z1_opt, z2_opt = solveExemple1()
+    objs =[z1_opt, z2_opt]
 
     #Definition du problème de l'exemple 1
-    A,B,C = extractABC(models,vars)
+    A,B,C1,C2= variableExemple1()
+    print(C1,C2)
 
     #nombre de variable
-    p = len(vars[0])
-    n = len(C)
+    p = len(C1)
+    n = 2
+
+    #Coefficient fonctions objectifs de l'exemple 1, utiliser en tant que matrice 
+    #des contraintes avec le critere maxmin
+    C= [C1,C2]
+
 
     m=Model("MinMaxRegret")
     m.setParam('OutputFlag', 0)
@@ -106,9 +113,13 @@ def solve_MinMaxRegretG(models, vars):
     #Definition des contraintes
     for i in range(n):
         m.addConstr(t>= objs[i]- quicksum(C[i][j]*x[j] for j in range(p)))
-    m.addConstr(quicksum(A[i]*x[i] for i in range(p))<= B[0])
+    m.addConstr(quicksum(A[i]*x[i] for i in range(p))<= B)
     m.update()
     #Resolution
+    print("###################")
+    m.write("model.lp")
+    print("###################")
+
     m.optimize()
 
     x_opt = [round(var.x) for var in x]
