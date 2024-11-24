@@ -1,8 +1,10 @@
 from pb_sac_a_dos import affichageExempl1, variableGen, modelGen, solveGen, afficheGen
 from maxmin import affichageMaxMin, solve_MaxMin, solve_MaxMinG
 from minmaxregret import affichageMinMaxRegret, solve_MinMaxRegret, solve_MinMaxRegretG
-from visualisation import visualisation_Ex1
-
+from visualisation import visualisation_Ex1, etude_evo_tps
+import time
+import numpy as np
+import matplotlib.pyplot as plt
 
 def main():
     
@@ -11,6 +13,7 @@ def main():
     print("3. Résolution avec le critère MinMax Regret de l'exemple 1")
     print("4. Visualisation des solutions de l'exemple 1")
     print("5. Résolution d'un problème généralisé")
+    print("6. Etude de l'évolution du temps de résolution en fonction de n et p (q.1.4)")
     
     choix = input("Entrez le numéro de votre choix : ")
     
@@ -32,9 +35,14 @@ def main():
     elif choix == "5":
         print("\nRésolution d'un problème généralisé :")
         pb_generalise()
+    
+    elif choix == "6":
+        print("\nEtude de l'évolution du temps de résolution en fonction de n et p (q.1.4)")
+        etude_evo_tps()
 
     else:
         print("\nChoix invalide. Veuillez entrer un numéro entre 1 et 5.")
+
 
 def pb_generalise():
     """
@@ -69,7 +77,7 @@ def pb_generalise():
             affichageMaxMin(x,z,t)
 
         elif choix=="3":
-            print("\nRésolution avec le critère MaxMin :")
+            print("\nRésolution avec le critère MinMax Regret :")
             x,z,t = solve_MinMaxRegretG(models, variables)
             affichageMinMaxRegret(x,z,t)
 
@@ -77,7 +85,6 @@ def pb_generalise():
             break
 
     
-
 
 if __name__ == "__main__":
     main()
