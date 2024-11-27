@@ -2,6 +2,7 @@ from pb_sac_a_dos import affichageExempl1, variableGen, modelGen, solveGen, affi
 from maxmin import affichageMaxMin, solve_MaxMin, solve_MaxMinG
 from minmaxregret import affichageMinMaxRegret, solve_MinMaxRegret, solve_MinMaxRegretG
 from visualisation import visualisation_Ex1, etude_evo_tps
+from maxOWA import find_composantes
 import time
 import numpy as np
 import matplotlib.pyplot as plt
@@ -14,6 +15,7 @@ def main():
     print("4. Visualisation des solutions de l'exemple 1")
     print("5. Résolution d'un problème généralisé")
     print("6. Etude de l'évolution du temps de résolution en fonction de n et p (q.1.4)")
+    print("7. Trouver les composantes du vecteur L(2, 9, 6, 8, 5, 4)")
     
     choix = input("Entrez le numéro de votre choix : ")
     
@@ -39,6 +41,16 @@ def main():
     elif choix == "6":
         print("\nEtude de l'évolution du temps de résolution en fonction de n et p (q.1.4)")
         etude_evo_tps()
+
+    elif choix == "7":
+        print("\nComposantes du vecteur L(2, 9, 6, 8, 5, 4):")
+        z = [2, 9, 6, 8, 5, 4]
+        c = find_composantes(z)
+        print(f"\nL({z}) = (", end="")
+        for i in range(len(c) - 1):
+            print(f"L_{i+1} = {c[i]}", end=", ")
+        print(f"L_{len(c)} = {c[-1]})")
+            
 
     else:
         print("\nChoix invalide. Veuillez entrer un numéro entre 1 et 5.")
