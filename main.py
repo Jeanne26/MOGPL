@@ -6,6 +6,7 @@ from maxOWA import find_composantes, maxOWAex1,affichageMawOwa
 import time
 import numpy as np
 import matplotlib.pyplot as plt
+from minOWA import minOWAex1
 
 def main():
     
@@ -17,6 +18,7 @@ def main():
     print("6. Etude de l'évolution du temps de résolution en fonction de n et p (q.1.4)")
     print("7. Trouver les composantes du vecteur L(2, 9, 6, 8, 5, 4)")
     print("8. Résolution exemple 1 avec le critère maxOwa")
+    print("9. Résolution exemple 1 avec le critère minOwa")
     
     choix = input("Entrez le numéro de votre choix : ")
     
@@ -55,6 +57,11 @@ def main():
     elif choix == "8":
         print("\nRésolution de l'exemple 1 avec le critère maxOWA")
         x,z,t= maxOWAex1()
+        affichageMawOwa(x,z,t)
+
+    elif choix == "9":
+        print("\nRésolution de l'exemple 1 avec le critère minOWA")
+        x,z,t= minOWAex1()
         affichageMawOwa(x,z,t)
     else:
         print("\nChoix invalide. Veuillez entrer un numéro entre 1 et 5.")

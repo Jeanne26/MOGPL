@@ -4,6 +4,16 @@ import numpy as np
 
 
 def dual(z,k):
+    """retourne le dual du programme lineaire de la question 2.2
+
+    Args:
+        z (list)
+        k (int)
+
+    Returns:
+        tuple: qui contient v_opt correspondant au vecteur optimal du programme
+                        et z_opt la valeur de la fonction objectif à l'optimum
+    """
     n= len(z)
     m = Model(f"model{k}")
     m.setParam('OutputFlag',0)
@@ -65,17 +75,18 @@ def maxOWAex1():
     m.update()
     #ajout de la fonction objective
     obj = LinExpr();
-    obj = quicksum(w[k]*(k*r[k] - quicksum(b[i][k] for i in range(n))) for k in range(n))
+    obj = quicksum(w[k]*((k+1)*r[k] - quicksum(b[i][k] for i in range(n))) for k in range(n))
     
     m.setObjective(obj,GRB.MAXIMIZE)
     m.update()
+    print("Fonction objectif :", m.getObjective())
+    m.write("model.lp")
     m.optimize()
 
     x_opt= [round(var.x) for var in x]
     z_opt = [int(sum(C[i][j] * x_opt[j] for j in range(p))) for i in range(n)]
     t_opt = m.objval
     return x_opt, z_opt,t_opt
-
 
 def affichageMawOwa(x_opt,z_opt,t_opt):
     """Affiche le resultat de la resolution du programme lineaire pour le 
