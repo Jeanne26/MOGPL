@@ -2,7 +2,7 @@ from pb_sac_a_dos import affichageExempl1, variableGen, modelGen, solveGen, affi
 from maxmin import affichageMaxMin, solve_MaxMin, solve_MaxMinG
 from minmaxregret import affichageMinMaxRegret, solve_MinMaxRegret, solve_MinMaxRegretG
 from visualisation import visualisation_Ex1, etude_evo_tps
-from maxOWA import find_composantes
+from maxOWA import find_composantes, maxOWAex1,affichageMawOwa
 import time
 import numpy as np
 import matplotlib.pyplot as plt
@@ -16,6 +16,7 @@ def main():
     print("5. Résolution d'un problème généralisé")
     print("6. Etude de l'évolution du temps de résolution en fonction de n et p (q.1.4)")
     print("7. Trouver les composantes du vecteur L(2, 9, 6, 8, 5, 4)")
+    print("8. Résolution exemple 1 avec le critère maxOwa")
     
     choix = input("Entrez le numéro de votre choix : ")
     
@@ -51,7 +52,10 @@ def main():
             print(f"L_{i+1} = {c[i]}", end=", ")
         print(f"L_{len(c)} = {c[-1]})")
             
-
+    elif choix == "8":
+        print("\nRésolution de l'exemple 1 avec le critère maxOWA")
+        x,z,t= maxOWAex1()
+        affichageMawOwa(x,z,t)
     else:
         print("\nChoix invalide. Veuillez entrer un numéro entre 1 et 5.")
 
