@@ -68,7 +68,7 @@ def affichageMinMaxRegret(x_opt,z_opt,t_opt):
     print("-----------------------------------------")
 
 
-def solve_MinMaxRegretG(models, vars):
+def MinMaxRegret(models, vars):
     """Application du critère MinMaw Regret pour la resolution d'un probleme generalise
     Args:
         models (list) : liste de modeles
@@ -79,7 +79,7 @@ def solve_MinMaxRegretG(models, vars):
     - z : vecteur image de x
     """
     #Recuperation des valeurs des variables a l'optimum
-    var_opt,objs = solveGen(models,vars)
+    _,objs = solveGen(models,vars)
 
     #Definition du problème de l'exemple 1
     A,B,C = extractABC(models,vars)

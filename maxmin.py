@@ -65,7 +65,7 @@ def affichageMaxMin(x_opt,z_opt,t_opt):
     print("-----------------------------------------")
 
 
-def solve_MaxMinG(models, vars):
+def MaxMin(models, vars):
     """Application du critère MaxMin pour la résolution d'un probleme generalise
     Args:
         models (list) : liste de modeles

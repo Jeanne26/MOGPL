@@ -1,5 +1,6 @@
 from gurobipy import *
 import numpy as np
+
 def variableExemple1():
     """Definie les variables de l'exemple 1
 

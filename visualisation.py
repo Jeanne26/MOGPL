@@ -1,7 +1,7 @@
 import matplotlib.pyplot as plt
 from pb_sac_a_dos import solveExemple1, variableExemple1,modelGen
-from maxmin import solve_MaxMin, solve_MaxMinG
-from minmaxregret import solve_MinMaxRegret, solve_MinMaxRegretG
+from maxmin import solve_MaxMin
+from minmaxregret import solve_MinMaxRegret
 import numpy as np
 import time
 
@@ -41,60 +41,64 @@ def visualisation_Ex1():
     plt.grid(True)
     plt.show()
 
-def etude_evo_tps():
-    """Étude de l'évolution du temps de résolution en fonction de n et p
+def etude_evo_tps(crit1, crit2):
+    """Étude de l'évolution du temps de résolution en fonction de n et p 
+
+    Args:
+        crit1 (function) : premier critere pour la comparaison
+        crit2 (function) : deuxieme critere pour la comparaison
     """
     n_values = [5, 10, 15]
     p_values = [10, 15, 20]
 
     # init list temps moyen
-    avg_times_maxmin = []
-    avg_times_minmax = []
+    avg_times1 = []
+    avg_times2 = []
 
     for i in n_values:
         for j in p_values:
             print("\n--------------")
             print(f"\nÉtude pour n = {i}, p = {j}")
-            times_maxmin = []
-            times_minmax = []
+            times1 = []
+            times2 = []
 
             for _ in range(10):
                 # generation des modeles
                 models, variables = modelGen(i, j)
                 
-                # critere MaxMin
+                # premier critere
                 start_time = time.time()
-                solve_MaxMinG(models, variables)
-                chrono_maxmin = time.time() - start_time
-                times_maxmin.append(chrono_maxmin)
+                crit1(models, variables)
+                chrono1 = time.time() - start_time
+                times1.append(chrono1)
                 
-                #critere MinMax Regret
+                #second critere
                 start_time = time.time()
-                solve_MinMaxRegretG(models, variables)
-                chrono_minmax = time.time() - start_time
-                times_minmax.append(chrono_minmax)
+                crit2(models, variables)
+                chrono2 = time.time() - start_time
+                times2.append(chrono2)
 
             # Calcul temps moyen pour chaque critere
-            avg_time_maxmin = np.mean(times_maxmin)
-            avg_time_minmax = np.mean(times_minmax)
+            avg_time1 = np.mean(times1)
+            avg_time2 = np.mean(times2)
             
             #ajout du temps moyen au tableau de tous les temps moyen
-            avg_times_maxmin.append(avg_time_maxmin)
-            avg_times_minmax.append(avg_time_minmax)
+            avg_times1.append(avg_time1)
+            avg_times2.append(avg_time2)
 
-            print(f"  Temps moyen MaxMin: {avg_time_maxmin:.4f} secondes")
-            print(f"  Temps moyen MinMax Regret: {avg_time_minmax:.4f} secondes")
+            print(f"  Temps moyen {crit1.__name__}: {avg_time1:.4f} secondes")
+            print(f"  Temps moyen {crit2.__name__}: {avg_time2:.4f} secondes")
     
     # reshape des tableaux pour la visualisation
-    avg_times_maxmin = np.array(avg_times_maxmin).reshape(len(n_values), len(p_values))
-    avg_times_minmax = np.array(avg_times_minmax).reshape(len(n_values), len(p_values))
+    avg_times1 = np.array(avg_times1).reshape(len(n_values), len(p_values))
+    avg_times2 = np.array(avg_times2).reshape(len(n_values), len(p_values))
 
     # creation des figures
     fig, ax = plt.subplots(1, 2, figsize=(14, 6))
 
     # temps moyen maximin
-    cax1 = ax[0].imshow(avg_times_maxmin, interpolation='nearest', cmap='viridis')
-    ax[0].set_title("Temps moyen avec le critère MaxMin")
+    cax1 = ax[0].imshow(avg_times1, interpolation='nearest', cmap='viridis')
+    ax[0].set_title(f"Temps moyen avec le critère {crit1.__name__}")
     ax[0].set_xticks(np.arange(len(p_values)))
     ax[0].set_yticks(np.arange(len(n_values)))
     ax[0].set_xticklabels(p_values)
@@ -104,8 +108,8 @@ def etude_evo_tps():
     fig.colorbar(cax1, ax=ax[0])
 
     # temps moyen minmax
-    cax2 = ax[1].imshow(avg_times_minmax, interpolation='nearest', cmap='viridis')
-    ax[1].set_title("Temps moyen avec le critère MinMax Regret")
+    cax2 = ax[1].imshow(avg_times2, interpolation='nearest', cmap='viridis')
+    ax[1].set_title(f"Temps moyen avec le critère {crit2.__name__}")
     ax[1].set_xticks(np.arange(len(p_values)))
     ax[1].set_yticks(np.arange(len(n_values)))
     ax[1].set_xticklabels(p_values)
