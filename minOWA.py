@@ -23,10 +23,10 @@ def minOWAex1():
     #x doit etre realisable contrainte de budget
     m.addConstr(quicksum(A[j]*x[j] for j in range(p))<=B)
     #ajout des contraintes
-    for i in range(n):
-        for k in range(n):
-            z = quicksum(C[i][j]*x[j] for j in range(p))
-            m.addConstr(r[k] -b[i][k] >= z_star[k] - z)
+    for k in range(n):
+        for i in range(n):
+            z_i= quicksum(C[i][j]*x[j] for j in range(p))
+            m.addConstr(r[k] - b[i][k] >= z_star[i] - z_i)
     m.update()
     #ajout de la fonction objective
     obj = LinExpr();
