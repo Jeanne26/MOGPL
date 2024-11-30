@@ -6,7 +6,9 @@ def graphe_1():
         tuple: G: V (list): ensemble des sommets du graphe
                   A (dict): ensemble des aretes du graphe
     """
+    #liste des sommets
     V= ["a","b","c","d","e","f"]
+    #dictionnaire des aretes
     A = dict()
     A[("a","b")]= [4,3]
     A[("a","c")]= [5,1]
@@ -18,6 +20,31 @@ def graphe_1():
     A[("c","d")]= [5,1]
     A[("d","f")]= [3,2]
     A[("e","f")]= [5,2]
+
+    return (V, A)
+
+def graphe_2():
+    """Retourne le graphe de gauche de l'exemple 2
+
+    Returns:
+        tuple: G: V (list): ensemble des sommets du graphe
+                  A (dict): ensemble des aretes du graphe
+    """
+    #liste des sommets
+    V= ["a","b","c","d","e","f","g"]
+    #dictionnaire des aretes
+    A = dict()
+    A[("a","b")]= [5, 3]
+    A[("a","c")]= [10, 4]
+    A[("a","d")]= [2, 6]
+    A[("b","c")]= [1, 3]
+    A[("b","e")]= [4, 6]
+    A[("c","e")]= [4, 2]
+    A[("c","f")]= [1, 4]
+    A[("d","f")]= [3, 5]
+    A[("e","g")]= [1, 1]
+    A[("f","g")]= [1, 1]
+
 
     return (V, A)
 
@@ -39,6 +66,10 @@ def get_out(G,s):
             out_s.append((i,j))
 
     return out_s
+
+
+
+
 
 def get_in(G,s):
     """retourne la liste de toutes les aretes entrantes de s

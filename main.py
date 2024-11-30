@@ -7,6 +7,8 @@ import time
 import numpy as np
 import matplotlib.pyplot as plt
 from minOWA import minOWAex1, minOWA
+from chemin_robuste import find_shortest_path
+from utils_graphe import graphe_1,graphe_2
 
 def main():
     
@@ -20,7 +22,7 @@ def main():
     print("8. Résolution exemple 1 avec le critère maxOwa")
     print("9. Résolution exemple 1 avec le critère minOwa")
     print("10. Etude de l'évolution du temps de résolution en fonction de n et p (q.1.4)\n pour les critères maxOWA et minOWA")
-    
+    print("11. Détermination du plus court chemin des graphes de l'exemple 2")
     choix = input("Entrez le numéro de votre choix : ")
     
     if choix == "1":
@@ -68,8 +70,12 @@ def main():
     elif choix == "10":
         print("\nEtude de l'évolution du temps de résolution en fonction de n et p (q.1.4)\n pour les critères maxOWA et minOWA")
         etude_evo_tps(maxOWA,minOWA)
+    
+    elif choix == "11":
+        plus_court_chemin_exemple2()
+
     else:
-        print("\nChoix invalide. Veuillez entrer un numéro entre 1 et 10.")
+        print("\nChoix invalide. Veuillez entrer un numéro entre 1 et 11.")
 
 
 def pb_generalise():
@@ -112,7 +118,35 @@ def pb_generalise():
         elif choix =="0":
             break
 
-    
+
+def plus_court_chemin_exemple2():
+    """Scenario pour la determination du plus court chemin de l'exemple 2
+    """
+    print("\n########################################")
+
+    g = int(input("Graphe (gauche: 1, droite: 2) : "))
+    s = int(input("Scénario (s: {0,1}) : "))
+
+    if g not in {1,2} or s not in {1,2}:
+        print("Les valeurs renseignées sont incompatibles")
+    if g==1:
+        G = graphe_1()
+        path, total_time = find_shortest_path(G, s, "a", "f")
+        print("---------------------------------------------")
+        print(f"Plus court chemin dans le graphe {g} pour le scénario {s}")
+        print("Chemin optimal :", path)
+        print("Temps total :", total_time)
+        print("---------------------------------------------")
+
+    else:
+        G = graphe_1()
+        path, total_time = find_shortest_path(G, s, "a", "f")
+        print("---------------------------------------------")
+        print(f"Plus court chemin dans le graphe {g} pour le scénario {s}")
+        print("Chemin optimal :", path)
+        print("Temps total :", total_time)
+        print("---------------------------------------------")
+
 
 if __name__ == "__main__":
     main()
