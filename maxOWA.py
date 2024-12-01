@@ -1,7 +1,7 @@
 from gurobipy import *
 from pb_sac_a_dos import variableExemple1,extractABC
 import numpy as np
-from utils_graphe import get_in,get_out,graphe_2
+from utils_graphe import get_in,get_out
 
 
 def dual(z,k):
@@ -195,8 +195,7 @@ def find_maxOWA_path(G,d,a,w):
     b= [[m.addVar(vtype=GRB.CONTINUOUS,lb=0,name=f"b{i+1}{j+1}") for j in range(S)] for i in range(S)]
     m.update()
     
-    #le chemin considéré doit être réalisable
-        #contraintes pour s'assurer que c'est un chemin realisable
+    #contraintes pour s'assurer que c'est un chemin realisable
     for v in V:
         in_v = get_in(G,v)
         out_v = get_out(G,v)
@@ -227,7 +226,7 @@ def find_maxOWA_path(G,d,a,w):
     obj = quicksum(w_prime[k]*((k+1)*(r[k]) - quicksum(b[i][k] for i in range(S))) for k in range(S))
     m.setObjective(obj,GRB.MAXIMIZE)
     m.update()
-    m.write("model.lp")
+    # m.write("model.lp")
 
     m.optimize()
 

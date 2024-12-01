@@ -185,7 +185,7 @@ def plus_court_chemin_criteres():
         print("---------------------------------------------")
         print(f"Critère maxOWA pour la recherche d'un chemin robuste dans le graphe {g}\n résultat avec différentes pondérations")
         
-        for k in [2, 4, 8, 16]:
+        for k in [1,2, 4, 8, 16]:
             if g==1:
                 G= graphe_1()
                 a="f"
