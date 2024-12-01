@@ -1,3 +1,4 @@
+import random
 
 def graphe_1():
     """Retourne le graphe de gauche de l'exemple 2
@@ -71,8 +72,6 @@ def get_out(G,s):
 
 
 
-
-
 def get_in(G,s):
     """retourne la liste de toutes les aretes entrantes de s
 
@@ -91,6 +90,41 @@ def get_in(G,s):
 
     return out_s
 
+
+
+def genGraph(n, p):
+    """
+    Genere un graphe aleatoire avec n scenario et p noeuds
+
+    Args:
+        n (int): Le nombre de scénarios.
+        p (int): Le nombre de nœuds du graphe.
+    
+    Returns:
+        tuple: Un tuple contenant :
+            - V (list): Liste des nœuds du graphe.
+            - A (dict): Dictionnaire des arcs et de leurs coûts pour chaque scénario.
+    """
+    V = [chr(i) for i in range(97, 97 + p)]  # 'a', 'b', ..., jusqu'à 'p'
+    
+    # Initialisation des arcs
+    A = {}
+
+    #choix du nombre d'arc dans le graphe
+    nb_arcs = random.randint(int(0.3 * p * (p - 1)), int(0.5 * p * (p - 1))) 
+    #creer la liste de tous les arcs possibles
+    all_arcs = [(u, v) for u in V for v in V if u != v]
+    #melange la liste
+    random.shuffle(all_arcs)
+    
+    # choix de nb_arcs parmis tous les arcs possibles
+    chosen_arcs = all_arcs[:nb_arcs]
+    
+    # Remplir le dictionnaire des arcs avec des coûts pour chaque scénario
+    for (u, v) in chosen_arcs:
+        A[(u, v)] = [random.randint(1, 100) for _ in range(n)]  # Tirer un coût pour chaque scénario
+
+    return V, A
 
 
 

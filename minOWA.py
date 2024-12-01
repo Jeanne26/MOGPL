@@ -161,7 +161,7 @@ def find_minOWA_path(G,dep,arr,w):
         for i in range(S):
             _,t_i_star = find_shortest_path(G,i,dep,arr)
             r_i = t_i_star - quicksum(A[arc][i]*x[arc] for arc in A)
-            m.addConstr(d[k]-b[i][k]>=-r_i)
+            m.addConstr(d[k]-b[i][k]>= - r_i)
     m.update()
 
     #ajout de la fonction objective
