@@ -121,7 +121,7 @@ def affichageExempl1():
     print("Solution optimale dans le scénario 2:")
     print("x2* :", x2_opt)
     print("")
-    print('Valeur de la fonction objectif :', obj2)
+    print('Valeur de la fonction objectif dans le scenario 2:', obj2)
     print("-----------------------------------------")
     print("-----------------------------------------")
 

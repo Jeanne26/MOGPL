@@ -1,4 +1,4 @@
-from pb_sac_a_dos import affichageExempl1, variableGen, modelGen, solveGen, afficheGen
+from pb_sac_a_dos import affichageExempl1, modelGen, solveGen, afficheGen
 from maxmin import affichageMaxMin, solve_MaxMin, MaxMin, find_maxmin_path
 from minmaxregret import affichageMinMaxRegret, solve_MinMaxRegret, MinMaxRegret, find_minmax_path
 from visualisation import visualisation_Ex1, etude_evo_tps,etude_evo_tps_path
@@ -7,78 +7,130 @@ from minOWA import minOWAex1, minOWA, find_minOWA_path
 from utils_graphe import graphe_1,graphe_2, find_shortest_path
 
 def main():
-    
-    print("1. Résolution de l'exemple 1 (scénarios 1 et 2)")
-    print("2. Résolution avec le critère MaxMin de l'exemple 1")
-    print("3. Résolution avec le critère MinMax Regret de l'exemple 1")
-    print("4. Visualisation des solutions de l'exemple 1")
-    print("5. Résolution d'un problème généralisé")
-    print("6. Etude de l'évolution du temps de résolution en fonction de n et p (q.1.4)\n pour les critères maxmin et minmax")
-    print("7. Trouver les composantes du vecteur L(2, 9, 6, 8, 5, 4)")
-    print("8. Résolution exemple 1 avec le critère maxOwa")
-    print("9. Résolution exemple 1 avec le critère minOwa")
-    print("10. Etude de l'évolution du temps de résolution en fonction de n et p (q.1.4)\n pour les critères maxOWA et minOWA")
-    print("11. Détermination du plus court chemin des graphes de l'exemple 2")
-    print("12. Plus courts chemins et critères")
-    print("13. Etude de l'évolution du temps de résolution pour les plus courts chemin en fonction \n du nombre de noeuds et d'arcs des graphes")
-    choix = input("Entrez le numéro de votre choix : ")
-    
-    if choix == "1":
-        print("\nRésolution de l'exemple 1 :")
-        affichageExempl1()
-        
-    elif choix == "2":
-        print("\nRésolution avec le critère MaxMin :")
-        x,z,t = solve_MaxMin()
-        affichageMaxMin(x,z,t)
-    elif choix == "3":
-        print("\nRésolution avec le critère MinMax Regret :")
-        x,z,t = solve_MinMaxRegret()
-        affichageMinMaxRegret(x,z,t)
-    elif choix == "4":
-        print("\nVisualisation des solutions de l'exemple 1")
-        visualisation_Ex1()
-    elif choix == "5":
-        print("\nRésolution d'un problème généralisé :")
-        pb_generalise()
-    
-    elif choix == "6":
-        print("\nEtude de l'évolution du temps de résolution en fonction de n et p (q.1.4)")
-        etude_evo_tps(MaxMin,MinMaxRegret)
+    while True:
+        print("\nMenu principal :")
+        print("1. Linéarisation des critères maxmin et minmax regret")
+        print("2. Linéarisation des critères maxOWA et minOWA")
+        print("3. Application à la recherche d'un chemin robuste dans un graphe")
+        print("0. Quitter")
 
-    elif choix == "7":
-        print("\nComposantes du vecteur L(2, 9, 6, 8, 5, 4):")
-        z = [2, 9, 6, 8, 5, 4]
-        c = find_composantes(z)
-        print(f"\nL({z}) = (", end="")
-        for i in range(len(c) - 1):
-            print(f"L_{i+1} = {c[i]}", end=", ")
-        print(f"L_{len(c)} = {c[-1]})")
-            
-    elif choix == "8":
-        print("\nRésolution de l'exemple 1 avec le critère maxOWA")
-        x,z,t= maxOWAex1()
-        affichageMawOwa(x,z,t)
+        choix = input("Entrez le numéro de votre choix : ")
 
-    elif choix == "9":
-        print("\nRésolution de l'exemple 1 avec le critère minOWA")
-        x,z,t= minOWAex1()
-        affichageMawOwa(x,z,t)
+        if choix == "1":
+            while True:
+                print("\nLinéarisation des critères maxmin et minmax regret:")
+                print("\t1. Résolution de l'exemple 1 (scénarios 1 et 2)")
+                print("\t2. Résolution avec le critère MaxMin de l'exemple 1 (1.1)")
+                print("\t3. Résolution avec le critère MinMax Regret de l'exemple 1 (1.2)")
+                print("\t4. Visualisation des solutions de l'exemple 1 (1.3)")
+                print("\t5. Résolution d'un problème généralisé")
+                print("\t6. Etude de l'évolution du temps de résolution en fonction de n et p pour les critères maxmin et minmax (1.4)")
+                print("\t0. Retour au menu principal")
+                choix = input("Entrez le numéro de votre choix : ")
 
-    elif choix == "10":
-        print("\nEtude de l'évolution du temps de résolution en fonction de n et p (q.1.4)\n pour les critères maxOWA et minOWA")
-        etude_evo_tps(maxOWA,minOWA)
-    
-    elif choix == "11":
-        plus_court_chemin_exemple2()
+                if choix == "1":
+                    print("\nRésolution de l'exemple 1 :")
+                    affichageExempl1()
 
-    elif choix == "12":
-        plus_court_chemin_criteres()
+                elif choix == "2":
+                    print("\nRésolution avec le critère MaxMin :")
+                    x, z, t = solve_MaxMin()
+                    affichageMaxMin(x, z, t)
 
-    elif choix == "13":
-        etude_evo_tps_path()
-    else:
-        print("\nChoix invalide. Veuillez entrer un numéro entre 1 et 13.")
+                elif choix == "3":
+                    print("\nRésolution avec le critère MinMax Regret :")
+                    x, z, t = solve_MinMaxRegret()
+                    affichageMinMaxRegret(x, z, t)
+
+                elif choix == "4":
+                    print("\nVisualisation des solutions de l'exemple 1")
+                    visualisation_Ex1()
+
+                elif choix == "5":
+                    print("\nRésolution d'un problème généralisé :")
+                    pb_generalise()
+
+
+                if choix == "6":
+                    print("\nEtude de l'évolution du temps de résolution en fonction de n et p ")
+                    etude_evo_tps(MaxMin, MinMaxRegret)
+
+                elif choix == "0":
+                    break  # Retourner au menu principal
+
+                else:
+                    print("Choix invalide. Veuillez saisir un choix entre 0 et 6.")
+
+        elif choix == "2":
+            while True:
+                print("\nLinéarisation des critères maxOWA et minOWA:")
+                print("\t1. Trouver les composantes du vecteur L(2, 9, 6, 8, 5, 4) (2.2)")
+                print("\t2. Résolution exemple 1 avec le critère maxOWA (2.4)")
+                print("\t3. Résolution exemple 1 avec le critère minOWA (2.5)")
+                print("\t4. Etude de l'évolution du temps de résolution en fonction de n et p pour les critères maxOWA et minOWA (2.6)")
+                print("\t0. Retour au menu principal")
+                choix = input("Entrez le numéro de votre choix : ")
+
+                if choix == "1":
+                    print("\nComposantes du vecteur L(2, 9, 6, 8, 5, 4):")
+                    z = [2, 9, 6, 8, 5, 4]
+                    c = find_composantes(z)
+                    print(f"\nL({z}) = (", end="")
+                    for i in range(len(c) - 1):
+                        print(f"L_{i + 1} = {c[i]}", end=", ")
+                    print(f"L_{len(c)} = {c[-1]})")
+
+                elif choix == "2":
+                    print("\nRésolution de l'exemple 1 avec le critère maxOWA")
+                    x, z, t = maxOWAex1()
+                    affichageMawOwa(x, z, t)
+
+                elif choix == "3":
+                    print("\nRésolution de l'exemple 1 avec le critère minOWA")
+                    x, z, t = minOWAex1()
+                    affichageMawOwa(x, z, t)
+
+                elif choix == "4":
+                    print("\nEtude de l'évolution du temps de résolution en fonction de n et p (q.1.4) pour les critères maxOWA et minOWA")
+                    etude_evo_tps(maxOWA, minOWA)
+
+                elif choix == "0":
+                    break  # Retourner au menu principal
+
+                else:
+                    print("Choix invalide. Veuillez saisir un choix entre 0 et 4.")
+
+        elif choix == "3":
+            while True:
+                print("\nApplication à la recherche d'un chemin robuste dans un graphe:")
+                print("\t1. Détermination du plus court chemin des graphes de l'exemple 2 (3.2)")
+                print("\t2. Plus courts chemins et critères (3.3)")
+                print("\t3. Etude de l'évolution du temps de résolution pour les plus courts chemins en fonction du nombre de noeuds et d'arcs des graphes (3.4)")
+                print("\t0. Retour au menu principal")
+                choix = input("Entrez le numéro de votre choix : ")
+
+                if choix == "1":
+                    plus_court_chemin_exemple2()
+
+                elif choix == "2":
+                    plus_court_chemin_criteres()
+
+                elif choix == "3":
+                    etude_evo_tps_path()
+
+                elif choix == "0":
+                    break  # Retourner au menu principal
+
+                else:
+                    print("Choix invalide. Veuillez saisir un choix entre 0 et 3.")
+
+        elif choix == "0":
+            print("Quitter le programme.")
+            break  # Quitter le programme
+
+        else:
+            print("Choix invalide. Veuillez saisir un choix entre 0 et 3.")
+
 
 
 def pb_generalise():
@@ -221,7 +273,8 @@ def plus_court_chemin_criteres():
             print("Valeur de la fonction objectif:" ,obj)
             print("---------------------------------------------")       
 
+
+
+
 if __name__ == "__main__":
     main()
-
-

@@ -57,7 +57,7 @@ def solve_MinMaxRegret():
 
 def affichageMinMaxRegret(x_opt,z_opt,t_opt):
     """
-    Affiche le resultat de la resolution du programme lineaire pour le critere maxmin regret
+    Affiche le resultat de la resolution du programme lineaire pour le critere minmax regret
     """
 
     print("-----------------------------------------")
@@ -70,7 +70,7 @@ def affichageMinMaxRegret(x_opt,z_opt,t_opt):
 
 
 def MinMaxRegret(models, vars):
-    """Application du critère MinMaw Regret pour la resolution d'un probleme generalise
+    """Application du critère MinMax Regret pour la resolution d'un probleme generalise
     Args:
         models (list) : liste de modeles
         vars (list) : liste de variables associees au modeles
