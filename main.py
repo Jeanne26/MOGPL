@@ -127,9 +127,11 @@ def plus_court_chemin_exemple2():
     g = int(input("Graphe (gauche: 1, droite: 2) : "))
     s = int(input("Scénario (s: {0,1}) : "))
 
-    if g not in {1,2} or s not in {1,2}:
+    if g not in {1,2} or s not in {0,1}:
         print("Les valeurs renseignées sont incompatibles")
-    if g==1:
+        return
+
+    elif g==1:
         G = graphe_1()
         path, total_time = find_shortest_path(G, s, "a", "f")
         print("---------------------------------------------")
@@ -139,8 +141,8 @@ def plus_court_chemin_exemple2():
         print("---------------------------------------------")
 
     else:
-        G = graphe_1()
-        path, total_time = find_shortest_path(G, s, "a", "f")
+        G = graphe_2()
+        path, total_time = find_shortest_path(G, s, "a", "g")
         print("---------------------------------------------")
         print(f"Plus court chemin dans le graphe {g} pour le scénario {s}")
         print("Chemin optimal :", path)

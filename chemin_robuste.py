@@ -65,3 +65,5 @@ def find_shortest_path(G, s,d,a):
     total_cost= m.ObjVal
 
     return path, total_cost
+
+
