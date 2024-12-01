@@ -16,7 +16,6 @@ def find_shortest_path(G, s,d,a):
     """
     V,A=G
     path = []
-    keys = A.keys()
     m= Model("short_path")
     m.setParam('OutputFlag', 0)
 
@@ -39,7 +38,7 @@ def find_shortest_path(G, s,d,a):
         entrant = []
         sortant=[]
 
-    #contrainte de conservation du flot
+    #contraintes de conservation du flot
     for s in V:
         in_s = get_in(G,s)
         out_s = get_out(G,s)

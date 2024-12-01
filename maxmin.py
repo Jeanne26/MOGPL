@@ -1,6 +1,7 @@
 from gurobipy import *
 import numpy as np
 from pb_sac_a_dos import variableExemple1, extractABC
+from utils_graphe import get_in,get_out, graphe_1
 
 def solve_MaxMin():
     """Application du critère MaxMin pour la résolution de l'exemple 1
@@ -110,3 +111,66 @@ def MaxMin(models, vars):
     
     return x_opt,z_opt,t_opt
    
+
+def find_maxmin_path(G,d,a):
+    """Application du critère maxmin pour la recherche d'un chemin robuste
+
+    Args:
+        G (tuple): graphe
+        d (char): sommet de depart
+        a (char): sommet d'arrivee
+    Returns:
+        path: liste des aretes du plus court chemin trouve
+        total_cost: cout total du plus court chemin        
+    """
+    V,A =G
+    m= Model("maxmin_path")
+    m.setParam('OutputFlag',0)
+    #recuperation du nombre de scenarios
+    S= len(next(iter(A.values())))
+
+    #ajout des variables pour les arcs
+    x= {}
+    for (i,j) in  A:
+        x[(i,j)] = m.addVar(vtype=GRB.BINARY,lb=0, name=f"x_{i}_{j}")
+    m.update()
+    #variable pour le critère
+    y = m.addVar(vtype=GRB.CONTINUOUS,lb= -GRB.INFINITY, ub=0, name="y")
+    m.update()
+    #definition de l'objectif
+    m.setObjective(y, GRB.MAXIMIZE)
+    m.update()
+
+    #contraintes pour s'assurer que c'est un chemin realisable
+    for v in V:
+        in_v = get_in(G,v)
+        out_v = get_out(G,v)
+
+        if v == d:  # Sommet de depart
+            m.addConstr(
+                quicksum(x[arc] for arc in out_v) == 1
+            )
+        elif v == a:  # Sommet d'arrivee
+            m.addConstr(
+                quicksum(x[arc] for arc in in_v ) == 1
+            )
+        else: 
+            m.addConstr(
+                quicksum(x[arc] for arc in out_v) -
+                quicksum(x[arc] for arc in in_v) == 0
+            )
+    m.update()  
+
+    # contraintes pour s'assurer que c'est un minimum
+    for s in range(S):
+        m.addConstr((y<= -quicksum(A[arc][s]*x[arc] for arc in A)))
+    m.update()
+
+    m.optimize()
+
+    path= [arc for arc in A if x[arc].X>0.5]
+    total_cost= -m.ObjVal
+    
+    return path , total_cost
+    
+

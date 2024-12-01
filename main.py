@@ -1,5 +1,5 @@
 from pb_sac_a_dos import affichageExempl1, variableGen, modelGen, solveGen, afficheGen
-from maxmin import affichageMaxMin, solve_MaxMin, MaxMin
+from maxmin import affichageMaxMin, solve_MaxMin, MaxMin, find_maxmin_path
 from minmaxregret import affichageMinMaxRegret, solve_MinMaxRegret, MinMaxRegret
 from visualisation import visualisation_Ex1, etude_evo_tps
 from maxOWA import find_composantes, maxOWAex1,affichageMawOwa,maxOWA
@@ -23,6 +23,7 @@ def main():
     print("9. Résolution exemple 1 avec le critère minOwa")
     print("10. Etude de l'évolution du temps de résolution en fonction de n et p (q.1.4)\n pour les critères maxOWA et minOWA")
     print("11. Détermination du plus court chemin des graphes de l'exemple 2")
+    print("12. Plus courts chemins et critères")
     choix = input("Entrez le numéro de votre choix : ")
     
     if choix == "1":
@@ -74,6 +75,8 @@ def main():
     elif choix == "11":
         plus_court_chemin_exemple2()
 
+    elif choix == "12":
+        plus_court_chemin_criteres()
     else:
         print("\nChoix invalide. Veuillez entrer un numéro entre 1 et 11.")
 
@@ -147,6 +150,26 @@ def plus_court_chemin_exemple2():
         print(f"Plus court chemin dans le graphe {g} pour le scénario {s}")
         print("Chemin optimal :", path)
         print("Temps total :", total_time)
+        print("---------------------------------------------")
+
+
+def plus_court_chemin_criteres():
+    c = int(input("Choix du critère : \n 1:maxmin 2:minmax 3:maxOWA 4:minOWA "))
+    g = int(input("Graphe (gauche: 1, droite: 2) : "))
+    
+    if g not in {1,2} or c not in {1,2,3,4}:
+        print("Les valeurs renseignées sont incompatibles")
+        return
+
+    if c==1:
+        print("---------------------------------------------")
+        print(f"Critère maxmin pour la recherche d'un chemin robuste dans le graphe {g}")
+        if g==1:
+            path, cost = find_maxmin_path(graphe_1(),"a","f")
+        else:
+            path,cost = find_maxmin_path(graphe_2(),"a","g")
+        print("Chemin maximin:", path)
+        print("Temps total (critère maximin):", cost)
         print("---------------------------------------------")
 
 
