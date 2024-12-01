@@ -2,7 +2,7 @@ from pb_sac_a_dos import affichageExempl1, variableGen, modelGen, solveGen, affi
 from maxmin import affichageMaxMin, solve_MaxMin, MaxMin, find_maxmin_path
 from minmaxregret import affichageMinMaxRegret, solve_MinMaxRegret, MinMaxRegret, find_minmax_path
 from visualisation import visualisation_Ex1, etude_evo_tps
-from maxOWA import find_composantes, maxOWAex1,affichageMawOwa,maxOWA
+from maxOWA import find_composantes, maxOWAex1,affichageMawOwa,maxOWA, find_maxOWA_path
 from minOWA import minOWAex1, minOWA
 from chemin_robuste import find_shortest_path
 from utils_graphe import graphe_1,graphe_2
@@ -151,7 +151,7 @@ def plus_court_chemin_exemple2():
 
 
 def plus_court_chemin_criteres():
-    c = int(input("Choix du critère : \n 1:maxmin 2:minmax 3:maxOWA 4:minOWA "))
+    c = int(input("Choix du critère : \n 1:maxmin 2:minmax 3:maxOWA 4:minOWA ->"))
     g = int(input("Graphe (gauche: 1, droite: 2) : "))
     
     if g not in {1,2} or c not in {1,2,3,4}:
@@ -180,6 +180,26 @@ def plus_court_chemin_criteres():
         print("t(P)(critère minmax):", costs)
         print("Valeur de la fonction objectif:" ,obj)
         print("---------------------------------------------")
+    
+    if c==3:
+        print("---------------------------------------------")
+        print(f"Critère maxOWA pour la recherche d'un chemin robuste dans le graphe {g}\n résultat avec différentes pondérations")
+        
+        for k in [2, 4, 8, 16]:
+            if g==1:
+                G= graphe_1()
+                a="f"
+            else:
+                G= graphe_2()
+                a="g"
+            w = [k, 1]  # Poids décroissants pour les scénarios
+            path, costs, obj = find_maxOWA_path(G, "a", a, w)
+            print(f"\n--- Résultats pour k = {k} ---")
+            print("Chemin maxOWA P:", path)
+            print("t(P):", costs)
+            print("Valeur de la fonction objectif:" ,obj)
+            print("---------------------------------------------")
+        
 
 if __name__ == "__main__":
     main()

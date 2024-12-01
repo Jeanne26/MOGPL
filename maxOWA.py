@@ -1,6 +1,7 @@
 from gurobipy import *
 from pb_sac_a_dos import variableExemple1,extractABC
 import numpy as np
+from utils_graphe import get_in,get_out,graphe_2
 
 
 def dual(z,k):
@@ -154,10 +155,87 @@ def maxOWA(models, vars):
     
     m.setObjective(obj,GRB.MAXIMIZE)
     m.update()
-    m.write("model.lp")
     m.optimize()
 
     x_opt= [round(var.x) for var in x]
     z_opt = [int(sum(C[i][j] * x_opt[j] for j in range(p))) for i in range(n)]
     t_opt = m.objval
     return x_opt, z_opt,t_opt
+
+def find_maxOWA_path(G,d,a,w):
+    """Application du critère maxOWA pour la recherche d'un chemin robuste dans le graphe G
+
+    Args:
+        G (tuple): graphe
+        d (char): sommet de depart
+        a (char): sommet d'arrivee
+        w (list) : liste de poids positifs et décroissant
+    Returns:
+        path: liste des aretes du plus court chemin trouve
+        total_cost: cout total du plus court chemin 
+        obj : valeur de la fonction objectif à l'optimum       
+    """
+    
+    V,A =G
+    m= Model("maxOWA_path")
+    m.setParam('OutputFlag',0)
+
+    #recuperation du nombre de scenarios
+    S= len(next(iter(A.values())))
+
+    #calcul des w'
+    w_prime=[w[i]- w[i+1] for i in range(S-1)]
+    w_prime.append(w[-1])
+
+    #ajout des variables pour les arcs
+    x= {}
+    for (i,j) in  A:
+        x[(i,j)] = m.addVar(vtype=GRB.BINARY,lb=0, name=f"x_{i}_{j}")
+    r= [m.addVar(vtype=GRB.CONTINUOUS,lb= -GRB.INFINITY, name=f"r{i+1}") for i in range(S)]
+    b= [[m.addVar(vtype=GRB.CONTINUOUS,lb=0,name=f"b{i+1}{j+1}") for j in range(S)] for i in range(S)]
+    m.update()
+    
+    #le chemin considéré doit être réalisable
+        #contraintes pour s'assurer que c'est un chemin realisable
+    for v in V:
+        in_v = get_in(G,v)
+        out_v = get_out(G,v)
+
+        if v == d:  # Sommet de depart
+            m.addConstr(
+                quicksum(x[arc] for arc in out_v) == 1
+            )
+        elif v == a:  # Sommet d'arrivee
+            m.addConstr(
+                quicksum(x[arc] for arc in in_v ) == 1
+            )
+        else: 
+            m.addConstr(
+                quicksum(x[arc] for arc in out_v) -
+                quicksum(x[arc] for arc in in_v) == 0
+            )
+
+    #contrainte pour maxOWA
+    for k in range(S):
+        for i in range(S):
+            t_i = quicksum(A[arc][i]*x[arc] for arc in A)
+            m.addConstr(r[k]-b[i][k]<=-t_i)
+    m.update()
+
+    #definition de la fonction objectif
+    obj = LinExpr();
+    obj = quicksum(w_prime[k]*((k+1)*(r[k]) - quicksum(b[i][k] for i in range(S))) for k in range(S))
+    m.setObjective(obj,GRB.MAXIMIZE)
+    m.update()
+    m.write("model.lp")
+
+    m.optimize()
+
+
+    path= [arc for arc in A if x[arc].X>0.5]
+    total_costs= [sum([A[arc][s] for arc in path]) for s in range(S)]
+    obj = m.ObjVal
+
+    return path,total_costs,obj
+
+    
