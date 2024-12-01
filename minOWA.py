@@ -1,8 +1,7 @@
 from gurobipy import *
 from pb_sac_a_dos import variableExemple1,solveExemple1,solveGen, extractABC, modelGen
 import numpy as np
-from utils_graphe import get_in,get_out, graphe_1
-from chemin_robuste import find_shortest_path
+from utils_graphe import get_in,get_out, find_shortest_path
 
 
 def minOWAex1():

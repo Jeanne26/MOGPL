@@ -1,11 +1,10 @@
 from pb_sac_a_dos import affichageExempl1, variableGen, modelGen, solveGen, afficheGen
 from maxmin import affichageMaxMin, solve_MaxMin, MaxMin, find_maxmin_path
 from minmaxregret import affichageMinMaxRegret, solve_MinMaxRegret, MinMaxRegret, find_minmax_path
-from visualisation import visualisation_Ex1, etude_evo_tps
+from visualisation import visualisation_Ex1, etude_evo_tps,etude_evo_tps_path
 from maxOWA import find_composantes, maxOWAex1,affichageMawOwa,maxOWA, find_maxOWA_path
 from minOWA import minOWAex1, minOWA, find_minOWA_path
-from chemin_robuste import find_shortest_path
-from utils_graphe import graphe_1,graphe_2
+from utils_graphe import graphe_1,graphe_2, find_shortest_path
 
 def main():
     
@@ -21,6 +20,7 @@ def main():
     print("10. Etude de l'évolution du temps de résolution en fonction de n et p (q.1.4)\n pour les critères maxOWA et minOWA")
     print("11. Détermination du plus court chemin des graphes de l'exemple 2")
     print("12. Plus courts chemins et critères")
+    print("13. Etude de l'évolution du temps de résolution pour les plus courts chemin en fonction \n du nombre de noeuds et d'arcs des graphes")
     choix = input("Entrez le numéro de votre choix : ")
     
     if choix == "1":
@@ -74,8 +74,11 @@ def main():
 
     elif choix == "12":
         plus_court_chemin_criteres()
+
+    elif choix == "13":
+        etude_evo_tps_path()
     else:
-        print("\nChoix invalide. Veuillez entrer un numéro entre 1 et 11.")
+        print("\nChoix invalide. Veuillez entrer un numéro entre 1 et 13.")
 
 
 def pb_generalise():

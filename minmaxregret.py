@@ -2,8 +2,7 @@ from gurobipy import *
 import numpy as np
 from pylab import plot, show
 from pb_sac_a_dos import solveExemple1, variableExemple1, solveGen, extractABC, modelGen
-from utils_graphe import get_in,get_out, graphe_1,graphe_2
-from chemin_robuste import find_shortest_path
+from utils_graphe import get_in,get_out, find_shortest_path
 
 def solve_MinMaxRegret():
     """Application du critère MinMax regret pour la resolution de l'exemple 1
