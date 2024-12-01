@@ -121,7 +121,8 @@ def find_maxmin_path(G,d,a):
         a (char): sommet d'arrivee
     Returns:
         path: liste des aretes du plus court chemin trouve
-        total_cost: cout total du plus court chemin        
+        total_cost: cout total du plus court chemin 
+        obj : valeur de la fonction objectif à l'optimum       
     """
     V,A =G
     m= Model("maxmin_path")
@@ -169,8 +170,9 @@ def find_maxmin_path(G,d,a):
     m.optimize()
 
     path= [arc for arc in A if x[arc].X>0.5]
-    total_cost= -m.ObjVal
+    total_costs= [sum([A[arc][s] for arc in path]) for s in range(S)]
+    obj = m.ObjVal
     
-    return path , total_cost
+    return path , total_costs, obj
     
 

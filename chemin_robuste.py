@@ -11,7 +11,7 @@ def find_shortest_path(G, s,d,a):
         d (char) : sommet de depart 
         a (char) : sommet d'arrivee
     Returns:
-        path: liste des aretes du plus court chemin trouvé
+        path: liste des aretes du plus court chemin trouve
         total_cost: cout total du plus court chemin
     """
     V,A=G
@@ -43,10 +43,10 @@ def find_shortest_path(G, s,d,a):
         in_s = get_in(G,s)
         out_s = get_out(G,s)
 
-        if s == d:  # Sommet de départ
+        if s == d:  # Sommet de depart
             m.addConstr(
                 quicksum(x[arc] for arc in out_s) == 1)
-        elif s == a:  # Sommet d'arrivée
+        elif s == a:  # Sommet d'arrivee
             m.addConstr(
                 quicksum(x[arc] for arc in in_s ) == 1
             )

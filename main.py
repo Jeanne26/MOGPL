@@ -1,11 +1,8 @@
 from pb_sac_a_dos import affichageExempl1, variableGen, modelGen, solveGen, afficheGen
 from maxmin import affichageMaxMin, solve_MaxMin, MaxMin, find_maxmin_path
-from minmaxregret import affichageMinMaxRegret, solve_MinMaxRegret, MinMaxRegret
+from minmaxregret import affichageMinMaxRegret, solve_MinMaxRegret, MinMaxRegret, find_minmax_path
 from visualisation import visualisation_Ex1, etude_evo_tps
 from maxOWA import find_composantes, maxOWAex1,affichageMawOwa,maxOWA
-import time
-import numpy as np
-import matplotlib.pyplot as plt
 from minOWA import minOWAex1, minOWA
 from chemin_robuste import find_shortest_path
 from utils_graphe import graphe_1,graphe_2
@@ -165,13 +162,26 @@ def plus_court_chemin_criteres():
         print("---------------------------------------------")
         print(f"Critère maxmin pour la recherche d'un chemin robuste dans le graphe {g}")
         if g==1:
-            path, cost = find_maxmin_path(graphe_1(),"a","f")
+            path, costs,obj = find_maxmin_path(graphe_1(),"a","f")
         else:
-            path,cost = find_maxmin_path(graphe_2(),"a","g")
-        print("Chemin maximin:", path)
-        print("Temps total (critère maximin):", cost)
+            path,costs,obj = find_maxmin_path(graphe_2(),"a","g")
+        print("Chemin maxmin P:", path)
+        print("t(P)(critère maxmin):", costs)
+        print("Valeur de la fonction objectif:" ,obj)
         print("---------------------------------------------")
-
+    if c==2:
+        print("---------------------------------------------")
+        print(f"Critère minmax regret pour la recherche d'un chemin robuste dans le graphe {g}")
+        if g==1:
+            path, costs,obj = find_minmax_path(graphe_1(),"a","f")
+        else:
+            path,costs,obj = find_minmax_path(graphe_2(),"a","g")
+        print("Chemin minmax P:", path)
+        print("t(P)(critère minmax):", costs)
+        print("Valeur de la fonction objectif:" ,obj)
+        print("---------------------------------------------")
 
 if __name__ == "__main__":
     main()
+
+

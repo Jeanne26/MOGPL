@@ -100,4 +100,3 @@ def minOWA(models,vars):
     z_opt = [int(sum(C[i][j] * x_opt[j] for j in range(p))) for i in range(n)]
     t_opt = m.objval
     return x_opt, z_opt,t_opt
-
