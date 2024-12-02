@@ -1,6 +1,19 @@
 from gurobipy import *
 import numpy as np
 
+
+"""
+Contient plusieurs fonctions et modèles Gurobi associés à la résolution de problèmes de sac à dos robustes.Fonctions:
+    - variableExemple1 : génére les variables de l'exemple 1
+    - modelExempl1 : creer les deux modèles de l'exemple 1
+    - solveExemple1 : résout l'exemple 1 dans les deux scénarios
+    - variableGen : génére des variables aléatoirement pour un problème de sac à dos 
+    - modelGen : génére des modèles de sac à dos robuste
+    - extractABC : extrait les variables d'un modèles
+    - solveGen : résout les programmes linéaires d'un problème de sac à dos 
+
+"""
+
 def variableExemple1():
     """Definie les variables de l'exemple 1
 
@@ -22,7 +35,6 @@ def variableExemple1():
     C2 = [2,4,6,8,10,12,14,16,18,70]
     
     return A,B,C1,C2
-
 
 def modelExemple1():
     """ Creer et retourne les deux modèles qui correspondent au scenario 1 et 2 
@@ -68,8 +80,6 @@ def modelExemple1():
 
     return m1, m2, x1 , x2
 
-
-
 def solveExemple1():
     """Resout les deux programmes lineaires de l'Exemple 1 celui du scenario 1
     et du scenario deux et renvoie les valeurs à l'objectif ainsi que le vecteur de 
@@ -100,7 +110,6 @@ def solveExemple1():
 
     return x1_opt, x2_opt, obj1, obj2
 
-
 def affichageExempl1():
     """
     Affiche les resultats de la resolution des programmes lineaires de l'exercice 1
@@ -125,7 +134,6 @@ def affichageExempl1():
     print("-----------------------------------------")
     print("-----------------------------------------")
 
-
 def variableGen(n,p):
     """Renvoie  les variables d'un problème de sac à dos robuste en présence
     de n scénarios et p variables
@@ -143,8 +151,6 @@ def variableGen(n,p):
     B = np.sum(A)//2
     C= np.array([np.random.randint(1,101, p) for i in range(n)])
     return A, B, C
-
-
 
 def modelGen(n,p):
     """ Creer et retourne n modeles correspondant au n scenarios du probleme

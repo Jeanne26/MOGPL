@@ -1,8 +1,17 @@
 from gurobipy import *
 import numpy as np
-from pylab import plot, show
 from pb_sac_a_dos import solveExemple1, variableExemple1, solveGen, extractABC, modelGen
 from utils_graphe import get_in,get_out, find_shortest_path
+
+
+"""
+Implémentation des fonctions pour résoudre des problèmes d'optimisation 
+au sens du critère MinMaxRegret. Fonctions:
+    - MinMaxRegretEx1 :  résolution de l'exemple 1 en utilisant le critère MinMaxRegret.
+    - MinMaxRegret :  résolution généralisée de problèmes MinMax sur plusieurs modèles .
+    - find_minmax_path : recherche d'un chemin robuste dans un graphe sous incertitude .
+    - affichageMinMaxRegret : affichage des résultats pour le critère MinMAx
+"""
 
 def MinMaxRegretEx1():
     """Application du critère MinMax regret pour la resolution de l'exemple 1
@@ -68,7 +77,6 @@ def affichageMinMaxRegret(x_opt,z_opt,t_opt):
     print("-----------------------------------------")
     print("-----------------------------------------")
 
-
 def MinMaxRegret(models, vars):
     """Application du critère MinMax Regret pour la resolution d'un probleme generalise
     Args:
@@ -117,7 +125,6 @@ def MinMaxRegret(models, vars):
     t_opt = t.x
     
     return x_opt,z_opt,t_opt
-
 
 def find_minmax_path(G,d,a):
     """Application du critère minlax regret pour la recherche d'un chemin robuste

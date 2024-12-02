@@ -3,6 +3,17 @@ import numpy as np
 from pb_sac_a_dos import variableExemple1, extractABC
 from utils_graphe import get_in,get_out
 
+    
+"""
+Implémentation des fonctions pour résoudre des problèmes d'optimisation 
+au sens du critère MaxMin. Fonctions:
+    - MaxMinEx1 :  résolution de l'exemple 1 en utilisant le critère MaxMin.
+    - MaxMin :  résolution généralisée de problèmes MaxMin sur plusieurs modèles .
+    - find_maxmin_path : recherche d'un chemin robuste dans un graphe sous incertitude .
+    - affichageMaxMin : affichage des résultats pour le critère Maxmin
+"""
+
+
 def MaxMinEx1():
     """Application du critère MaxMin pour la résolution de l'exemple 1
     Returns:
@@ -49,8 +60,6 @@ def MaxMinEx1():
     
     return x_opt,z_opt,t_opt
 
-
-
 def affichageMaxMin(x_opt,z_opt,t_opt):
     """
     Affiche le resultat de la resolution du programme lineaire pour le critere minmax
@@ -64,7 +73,6 @@ def affichageMaxMin(x_opt,z_opt,t_opt):
     print(f"Valeur de la fonction objectif g(x*) : {t_opt}")
     print("-----------------------------------------")
     print("-----------------------------------------")
-
 
 def MaxMin(models, vars):
     """Application du critère MaxMin pour la résolution d'un probleme generalise
@@ -111,7 +119,6 @@ def MaxMin(models, vars):
     
     return x_opt,z_opt,t_opt
    
-
 def find_maxmin_path(G,d,a):
     """Application du critère maxmin pour la recherche d'un chemin robuste
 

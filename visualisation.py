@@ -8,6 +8,9 @@ from utils_graphe import genGraph, find_shortest_path
 import numpy as np
 import time
 
+"""
+    Contient les fonctions nécessaires à la visualisation
+"""
 
 def visualisation_Ex1():
     """Representation dans le plan des differentes solutions de l'exemple 1
@@ -124,8 +127,6 @@ def etude_evo_tps(crit1, crit2):
     # affichage
     plt.show()
     return 
-
-
 
 def etude_evo_tps_path():
     """Étude de l'évolution du temps de résolution du problème du plus court chemin pour les 4 critères étudiés

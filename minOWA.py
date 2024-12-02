@@ -1,8 +1,16 @@
 from gurobipy import *
-from pb_sac_a_dos import variableExemple1,solveExemple1,solveGen, extractABC, modelGen
+from pb_sac_a_dos import variableExemple1,solveExemple1,solveGen, extractABC
 import numpy as np
 from utils_graphe import get_in,get_out, find_shortest_path
 
+"""
+
+Implémente des fonctions pour résoudre des problèmes d'optimisation 
+utilisant le critère MinOWA (Minimum Ordered Weighted Average). Fonctions :
+- minOWAex1 : résolution de l'exemple 1 selon le critère MinOWA .
+- minOWA : résolution généralisée de problèmes MinOWA sur plusieurs modèles .
+- find_minOWA_path : recherche d'un chemin robuste dans un graphe sous incertitude en appliquant MinOWA .
+"""
 
 def minOWAex1():
     A,B,C1,C2= variableExemple1()
@@ -36,14 +44,13 @@ def minOWAex1():
     m.setObjective(obj,GRB.MINIMIZE)
     m.update()
     print("Fonction objectif :", m.getObjective())
-    m.write("model.lp")
+    # m.write("model.lp")
     m.optimize()
 
     x_opt= [round(var.x) for var in x]
     z_opt = [int(sum(C[i][j] * x_opt[j] for j in range(p))) for i in range(n)]
     t_opt = m.objval
     return x_opt, z_opt,t_opt
-
 
 def minOWA(models,vars):
     """Application du critère MinOWA Regret pour la resolution d'un probleme generalise

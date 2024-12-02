@@ -3,6 +3,16 @@ from pb_sac_a_dos import variableExemple1,extractABC
 import numpy as np
 from utils_graphe import get_in,get_out
 
+"""
+
+Implémente des fonctions pour résoudre des problèmes d'optimisation 
+utilisant le critère MaxOWA (Maximum Ordered Weighted Average). Fonctions :
+- maxOWAex1 : résolution de l'exemple 1 selon le critère MaxOWA .
+- maxOWA : résolution généralisée de problèmes MaxOWA sur plusieurs modèles .
+- find_maxOWA_path : recherche d'un chemin robuste dans un graphe sous incertitude en appliquant MaxOWA .
+- dual : retourne le dual du programme lineaire de la question 2.2
+- find_composantes : trouve les composantes L_k 
+"""
 
 def dual(z,k):
     """retourne le dual du programme lineaire de la question 2.2
@@ -41,14 +51,20 @@ def dual(z,k):
 
     return v_opt,z_opt
 
-
 def find_composantes(z):
+    """Trouve les composantes L_k(z)
+
+    Args:
+        z (list): vecteur image
+
+    Returns:
+        c (list): liste des composantes trouvées
+    """
     c = []
     for k in range(1,len(z)+1):
         _,z_opt = dual(z,k)
         c.append(z_opt)
     return c
-
 
 def maxOWAex1():
     A,B,C1,C2= variableExemple1()
@@ -82,7 +98,7 @@ def maxOWAex1():
     m.setObjective(obj,GRB.MAXIMIZE)
     m.update()
     print("Fonction objectif :", m.getObjective())
-    m.write("model.lp")
+    # m.write("model.lp")
     m.optimize()
 
     x_opt= [round(var.x) for var in x]

@@ -1,6 +1,15 @@
 from gurobipy import *
 import random
-
+"""
+Contient les fonctions et outils nécessaires à la résolution des problème du plus court chemin robuste dans un graphe pondéré.
+Fonctions:
+    - graphe_1 : retourne le graphe1
+    - graphe_2 : retourne le graphe2
+    - get_out : renvoie les aretes sortantes d'un sommet
+    - get_in : renvoie les aretes entrantes d'un sommet
+    - find_shortest_path : trouve le chemin le plus rapide entre deux sommet dans un graphe donné pour un scénario donné
+    - genGraph : génére des graphes
+"""
 def graphe_1():
     """Retourne le graphe de gauche de l'exemple 2
 
@@ -52,7 +61,6 @@ def graphe_2():
 
     return (V, A)
 
-
 def get_out(G,s):
     """retourne la liste de toutes les aretes sortantes de s
 
@@ -71,8 +79,6 @@ def get_out(G,s):
 
     return out_s
 
-
-
 def get_in(G,s):
     """retourne la liste de toutes les aretes entrantes de s
 
@@ -90,7 +96,6 @@ def get_in(G,s):
             out_s.append((i,j))
 
     return out_s
-
 
 def find_shortest_path(G, s,d,a):
     """"
@@ -154,9 +159,6 @@ def find_shortest_path(G, s,d,a):
     total_cost= m.ObjVal
 
     return path, total_cost
-
-
-
 
 def genGraph(n, p):
     """
