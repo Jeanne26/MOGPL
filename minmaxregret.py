@@ -4,7 +4,7 @@ from pylab import plot, show
 from pb_sac_a_dos import solveExemple1, variableExemple1, solveGen, extractABC, modelGen
 from utils_graphe import get_in,get_out, find_shortest_path
 
-def solve_MinMaxRegret():
+def MinMaxRegretEx1():
     """Application du critère MinMax regret pour la resolution de l'exemple 1
     Returns:
     - x : solution optimal de l'exemple 1 au sens du minmax regret

@@ -1,6 +1,6 @@
 from pb_sac_a_dos import affichageExempl1, modelGen, solveGen, afficheGen
-from maxmin import affichageMaxMin, solve_MaxMin, MaxMin, find_maxmin_path
-from minmaxregret import affichageMinMaxRegret, solve_MinMaxRegret, MinMaxRegret, find_minmax_path
+from maxmin import affichageMaxMin, MaxMinEx1, MaxMin, find_maxmin_path
+from minmaxregret import affichageMinMaxRegret, MinMaxRegretEx1, MinMaxRegret, find_minmax_path
 from visualisation import visualisation_Ex1, etude_evo_tps,etude_evo_tps_path
 from maxOWA import find_composantes, maxOWAex1,affichageMawOwa,maxOWA, find_maxOWA_path
 from minOWA import minOWAex1, minOWA, find_minOWA_path
@@ -29,31 +29,43 @@ def main():
                 choix = input("Entrez le numéro de votre choix : ")
 
                 if choix == "1":
+                    print("\n------------------------------------------------")
                     print("\nRésolution de l'exemple 1 :")
                     affichageExempl1()
+                    print("\n------------------------------------------------")
 
                 elif choix == "2":
+                    print("\n------------------------------------------------")
                     print("\nRésolution avec le critère MaxMin :")
-                    x, z, t = solve_MaxMin()
+                    x, z, t = MaxMinEx1()
                     affichageMaxMin(x, z, t)
+                    print("\n------------------------------------------------")
 
                 elif choix == "3":
+                    print("\n------------------------------------------------")
                     print("\nRésolution avec le critère MinMax Regret :")
-                    x, z, t = solve_MinMaxRegret()
+                    x, z, t = MinMaxRegretEx1()
                     affichageMinMaxRegret(x, z, t)
+                    print("\n------------------------------------------------")
 
                 elif choix == "4":
+                    print("\n------------------------------------------------")
                     print("\nVisualisation des solutions de l'exemple 1")
                     visualisation_Ex1()
+                    print("\n------------------------------------------------")
 
                 elif choix == "5":
+                    print("\n------------------------------------------------")
                     print("\nRésolution d'un problème généralisé :")
                     pb_generalise()
+                    print("\n------------------------------------------------")
 
 
                 if choix == "6":
+                    print("\n------------------------------------------------")
                     print("\nEtude de l'évolution du temps de résolution en fonction de n et p ")
                     etude_evo_tps(MaxMin, MinMaxRegret)
+                    print("\n------------------------------------------------")
 
                 elif choix == "0":
                     break  # Retourner au menu principal
@@ -72,6 +84,7 @@ def main():
                 choix = input("Entrez le numéro de votre choix : ")
 
                 if choix == "1":
+                    print("\n------------------------------------------------")
                     print("\nComposantes du vecteur L(2, 9, 6, 8, 5, 4):")
                     z = [2, 9, 6, 8, 5, 4]
                     c = find_composantes(z)
@@ -79,20 +92,27 @@ def main():
                     for i in range(len(c) - 1):
                         print(f"L_{i + 1} = {c[i]}", end=", ")
                     print(f"L_{len(c)} = {c[-1]})")
+                    print("\n------------------------------------------------")
 
                 elif choix == "2":
+                    print("\n------------------------------------------------")
                     print("\nRésolution de l'exemple 1 avec le critère maxOWA")
                     x, z, t = maxOWAex1()
                     affichageMawOwa(x, z, t)
+                    print("\n------------------------------------------------")
 
                 elif choix == "3":
+                    print("\n------------------------------------------------")
                     print("\nRésolution de l'exemple 1 avec le critère minOWA")
                     x, z, t = minOWAex1()
                     affichageMawOwa(x, z, t)
+                    print("\n------------------------------------------------")
 
                 elif choix == "4":
+                    print("\n------------------------------------------------")
                     print("\nEtude de l'évolution du temps de résolution en fonction de n et p (q.1.4) pour les critères maxOWA et minOWA")
                     etude_evo_tps(maxOWA, minOWA)
+                    print("\n------------------------------------------------")
 
                 elif choix == "0":
                     break  # Retourner au menu principal
@@ -110,13 +130,19 @@ def main():
                 choix = input("Entrez le numéro de votre choix : ")
 
                 if choix == "1":
+                    print("\n------------------------------------------------")
                     plus_court_chemin_exemple2()
+                    print("\n------------------------------------------------")
 
                 elif choix == "2":
+                    print("\n------------------------------------------------")
                     plus_court_chemin_criteres()
+                    print("\n------------------------------------------------")
 
                 elif choix == "3":
+                    print("\n------------------------------------------------")
                     etude_evo_tps_path()
+                    print("\n------------------------------------------------")
 
                 elif choix == "0":
                     break  # Retourner au menu principal

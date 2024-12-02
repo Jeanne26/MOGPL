@@ -1,7 +1,7 @@
 import matplotlib.pyplot as plt
 from pb_sac_a_dos import solveExemple1, variableExemple1,modelGen
-from maxmin import solve_MaxMin,find_maxmin_path
-from minmaxregret import solve_MinMaxRegret,find_minmax_path
+from maxmin import MaxMinEx1,find_maxmin_path
+from minmaxregret import MinMaxRegretEx1,find_minmax_path
 from maxOWA import find_maxOWA_path
 from minOWA import find_minOWA_path
 from utils_graphe import genGraph, find_shortest_path
@@ -19,9 +19,9 @@ def visualisation_Ex1():
     z2_x1_star = sum([x1_star[i]*C2[i] for i in range(len(x1_star)) ])
     z1_x2_star = sum([x2_star[i]*C1[i] for i in range(len(x2_star)) ])
 
-    _,z_x_star,_ = solve_MaxMin()
+    _,z_x_star,_ = MaxMinEx1()
 
-    _,z_x_star_prime,_ = solve_MinMaxRegret()
+    _,z_x_star_prime,_ = MinMaxRegretEx1()
 
     z1 = [z1_x1_star, z1_x2_star, z_x_star[0], z_x_star_prime[0]]
     z2 = [z2_x1_star, z2_x2_star, z_x_star[1], z_x_star_prime[1]]

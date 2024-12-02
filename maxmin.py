@@ -3,7 +3,7 @@ import numpy as np
 from pb_sac_a_dos import variableExemple1, extractABC
 from utils_graphe import get_in,get_out
 
-def solve_MaxMin():
+def MaxMinEx1():
     """Application du critère MaxMin pour la résolution de l'exemple 1
     Returns:
     - x : solution optimal de l'exemple 1 au sens du maxmin
